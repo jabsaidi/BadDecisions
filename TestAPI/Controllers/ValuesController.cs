@@ -58,12 +58,12 @@ namespace TestAPI.Controllers
         [HttpPost("create")]
         public IActionResult Create([FromBody] JsonBody body)
         {
-            long id = Convert.ToInt32(body.id);
+            List <BadDecision> decisions = _badDecisionRepository.GetAll();
             string decision =body.decision;
 
             BadDecision badDecision = new BadDecision()
             {
-                Id = id,
+                Id = decisions.Count +1,
                 Decision = decision
             };
 
