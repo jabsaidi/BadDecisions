@@ -1,0 +1,14 @@
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\bin\Debug\netcoreapp2.2\TestAPI.deps.json
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\bin\Debug\netcoreapp2.2\TestAPI.runtimeconfig.json
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\bin\Debug\netcoreapp2.2\TestAPI.runtimeconfig.dev.json
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\bin\Debug\netcoreapp2.2\TestAPI.dll
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\bin\Debug\netcoreapp2.2\TestAPI.pdb
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.csprojAssemblyReference.cache
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.csproj.CoreCompileInputs.cache
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.RazorAssemblyInfo.cache
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.RazorAssemblyInfo.cs
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.AssemblyInfoInputs.cache
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.AssemblyInfo.cs
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.RazorTargetAssemblyInfo.cache
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.dll
+C:\Users\jabir.saidi\source\repos\CertificationMS-70-483\TestAPI\TestAPI\obj\Debug\netcoreapp2.2\TestAPI.pdb
