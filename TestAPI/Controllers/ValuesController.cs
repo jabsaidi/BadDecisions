@@ -44,11 +44,11 @@ namespace TestAPI.Controllers
         }
 
         [HttpPut ("{id}", Name ="Modify decision")]
-        public IActionResult Update(long id, [FromBody] JObject body)
+        public IActionResult Update(long id, [FromBody] JsonBody body)
         {
             BadDecision toBeModified = _badDecisionRepository.ModifyDecision(id);
 
-            var decision = (string)body.SelectToken("decision");
+            string decision = body.decision;
 
             toBeModified.Decision = decision;
 
@@ -56,10 +56,10 @@ namespace TestAPI.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] JObject body)
+        public IActionResult Create([FromBody] JsonBody body)
         {
-            var id = (long)body.SelectToken("id");
-            var decision = (string)body.SelectToken("decision");
+            long id = Convert.ToInt32(body.id);
+            string decision =body.decision;
 
             BadDecision badDecision = new BadDecision()
             {
