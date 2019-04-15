@@ -60,9 +60,11 @@ namespace TestAPI.DLA.Repository
             return _bd.FirstOrDefault(b => b.Id == id);
         }
 
-        public BadDecision ModifyDecision(long id)
+        public BadDecision ModifyDecision(BadDecision modifiedDecision)
         {
-            BadDecision toBeModified = _bd.FirstOrDefault(b => b.Id == id);
+            BadDecision toBeModified = GetById(modifiedDecision.Id);
+
+            toBeModified.Decision = modifiedDecision.Decision;
             return toBeModified;
         }
     }

@@ -11,7 +11,7 @@ namespace TestAPI.DLA.Repository
         BadDecision GetById(long id);
         List<BadDecision> GetAll();
 
-        BadDecision ModifyDecision(long id);
+        BadDecision ModifyDecision(BadDecision modifiedDecision);
         BadDecision Create(BadDecision badDecision);
 
         BadDecision Delete(long id);

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using TestAPI.DLA.Model;
+﻿using TestAPI.DLA.Model;
 using TestAPI.DLA.Repository;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace TestAPI.Controllers
 {
@@ -14,16 +10,19 @@ namespace TestAPI.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly IBadDecisionRepository _badDecisionRepository;
+        private readonly IBadDecisionFileRepository _badDecisionFileRepository;
 
-        public ValuesController(IBadDecisionRepository badDecisionRepository)
+        public ValuesController(IBadDecisionRepository badDecisionRepository, IBadDecisionFileRepository badDecisionFileRepository)
         {
             _badDecisionRepository = badDecisionRepository;
+            _badDecisionFileRepository = badDecisionFileRepository;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             List<BadDecision> badDecisions = _badDecisionRepository.GetAll();
+            List<BadDecision> fromCsv = _badDecisionFileRepository.GetAll();
 
             if (badDecisions == null)
                 return NotFound();
@@ -32,10 +31,11 @@ namespace TestAPI.Controllers
         }
 
         // GET api/values/id
-        [HttpGet ("{id}", Name ="Get BadDecisionId")]
+        [HttpGet("{id}", Name = "Get BadDecisionId")]
         public IActionResult GetById(long id)
         {
             var badDecision = _badDecisionRepository.GetById(id);
+            BadDecision fileDecision = _badDecisionFileRepository.GetById(id);
 
             if (badDecision == null)
                 return NotFound();
@@ -43,30 +43,35 @@ namespace TestAPI.Controllers
             return Ok(badDecision);
         }
 
-        [HttpPut ("{id}", Name ="Modify decision")]
-        public IActionResult Update(long id, [FromBody] JsonBody body)
+        [HttpPut("{id}", Name = "Modify decision")]
+        public IActionResult Update(long id, JsonBody body)
         {
-            BadDecision toBeModified = _badDecisionRepository.ModifyDecision(id);
 
             string decision = body.decision;
 
-            toBeModified.Decision = decision;
-
+            BadDecision toBeModified = new BadDecision()
+            {
+                Id = id,
+                Decision = decision
+            };
+            BadDecision modified = _badDecisionRepository.ModifyDecision(toBeModified);
+            BadDecision modifieCsv = _badDecisionFileRepository.Update(toBeModified);
             return Ok(toBeModified);
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] JsonBody body)
+        public IActionResult Create(JsonBody body)
         {
-            List <BadDecision> decisions = _badDecisionRepository.GetAll();
-            string decision =body.decision;
+            List<BadDecision> decisions = _badDecisionRepository.GetAll();
+            string decision = body.decision;
 
             BadDecision badDecision = new BadDecision()
             {
-                Id = decisions.Count +1,
+                Id = decisions.Count + 1,
                 Decision = decision
             };
 
+            BadDecision fileDecision = _badDecisionFileRepository.Create(badDecision);
             BadDecision newDecision = _badDecisionRepository.Create(badDecision);
 
             if (newDecision == null)
@@ -79,6 +84,7 @@ namespace TestAPI.Controllers
         public IActionResult Delete(long id)
         {
             BadDecision deletedDecision = _badDecisionRepository.Delete(id);
+            bool deleted = _badDecisionFileRepository.Delete(id);
 
             if (deletedDecision == null)
                 return BadRequest();

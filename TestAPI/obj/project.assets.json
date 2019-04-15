@@ -12134,11 +12134,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jabir.saidi\\source\\repos\\CertificationMS-70-483\\TestAPI\\TestAPI\\TestAPI.csproj",
+      "projectUniqueName": "C:\\Users\\jabir.saidi\\source\\repos\\TestAPI\\TestAPI\\TestAPI.csproj",
       "projectName": "TestAPI",
-      "projectPath": "C:\\Users\\jabir.saidi\\source\\repos\\CertificationMS-70-483\\TestAPI\\TestAPI\\TestAPI.csproj",
+      "projectPath": "C:\\Users\\jabir.saidi\\source\\repos\\TestAPI\\TestAPI\\TestAPI.csproj",
       "packagesPath": "C:\\Users\\jabir.saidi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jabir.saidi\\source\\repos\\CertificationMS-70-483\\TestAPI\\TestAPI\\obj\\",
+      "outputPath": "C:\\Users\\jabir.saidi\\source\\repos\\TestAPI\\TestAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
