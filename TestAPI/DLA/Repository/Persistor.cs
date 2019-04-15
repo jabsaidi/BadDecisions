@@ -171,6 +171,7 @@ namespace TestAPI.DLA.Repository
         public void ReplaceLine(int toReplace, string newLine)
         {
             string[] lines = File.ReadAllLines(_fileName);
+
             using (StreamWriter writer = new StreamWriter(_fileName))
             {
                 for (int currentLine = 1; currentLine <= lines.Length; ++currentLine)
@@ -186,7 +187,6 @@ namespace TestAPI.DLA.Repository
         public bool Delete(long id)
         {
             T objToDelete = GetById(id);
-
             int lineToRemove = GetLineToModify(objToDelete);
 
             return DeleteLine(lineToRemove);
