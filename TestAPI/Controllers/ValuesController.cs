@@ -10,19 +10,17 @@ namespace TestAPI.Controllers
     public class ValuesController : ControllerBase
     {
         private readonly IBadDecisionRepository _badDecisionRepository;
-        private readonly IBadDecisionFileRepository _badDecisionFileRepository;
 
-        public ValuesController(IBadDecisionRepository badDecisionRepository, IBadDecisionFileRepository badDecisionFileRepository)
+        public ValuesController(IBadDecisionRepository badDecisionRepository)
         {
             _badDecisionRepository = badDecisionRepository;
-            _badDecisionFileRepository = badDecisionFileRepository;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             List<BadDecision> badDecisions = _badDecisionRepository.GetAll();
-            List<BadDecision> fromCsv = _badDecisionFileRepository.GetAll();
+            List<BadDecision> fromCsv = _badDecisionRepository.GetAll();
 
             if (badDecisions == null)
                 return NotFound();
@@ -35,7 +33,7 @@ namespace TestAPI.Controllers
         public IActionResult GetById(long id)
         {
             var badDecision = _badDecisionRepository.GetById(id);
-            BadDecision fileDecision = _badDecisionFileRepository.GetById(id);
+            BadDecision fileDecision = _badDecisionRepository.GetById(id);
 
             if (badDecision == null)
                 return NotFound();
@@ -54,8 +52,8 @@ namespace TestAPI.Controllers
                 Id = id,
                 Decision = decision
             };
-            BadDecision modified = _badDecisionRepository.ModifyDecision(toBeModified);
-            BadDecision modifieCsv = _badDecisionFileRepository.Update(toBeModified);
+            BadDecision modified = _badDecisionRepository.Update(toBeModified);
+            BadDecision modifieCsv = _badDecisionRepository.Update(toBeModified);
             return Ok(toBeModified);
         }
 
@@ -71,12 +69,11 @@ namespace TestAPI.Controllers
                 Decision = decision
             };
 
-            BadDecision fileDecision = _badDecisionFileRepository.Create(badDecision);
+            BadDecision fileDecision = _badDecisionRepository.Create(badDecision);
             BadDecision newDecision = _badDecisionRepository.Create(badDecision);
 
             if (newDecision == null)
                 return BadRequest();
-
             return Ok(newDecision);
         }
 
@@ -84,11 +81,10 @@ namespace TestAPI.Controllers
         public IActionResult Delete(long id)
         {
             bool deletedDecision = _badDecisionRepository.Delete(id);
-            bool deleted = _badDecisionFileRepository.Delete(id);
+            bool deleted = _badDecisionRepository.Delete(id);
 
-            if (deletedDecision == null)
+            if (deletedDecision == false)
                 return BadRequest();
-
             return Ok();
         }
     }
