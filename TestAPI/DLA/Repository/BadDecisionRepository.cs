@@ -37,17 +37,15 @@ namespace TestAPI.DLA.Repository
             _bd.Add(new BadDecision() { Id = 5, Decision = "Ne pas dire bonne nuit à ma blonde avant de me coucher" });
         }
 
-        public BadDecision Delete(long id)
+        public bool Delete(long id)
         {
             BadDecision badDecision = _bd.SingleOrDefault(b => b.Id == id);
 
             if (badDecision == null)
-            {
-                return null;
-            }
+                return false;
 
             _bd.Remove(badDecision);
-            return badDecision;
+            return true;
         }
 
         public List<BadDecision> GetAll()
@@ -60,7 +58,7 @@ namespace TestAPI.DLA.Repository
             return _bd.FirstOrDefault(b => b.Id == id);
         }
 
-        public BadDecision ModifyDecision(BadDecision modifiedDecision)
+        public BadDecision Update(BadDecision modifiedDecision)
         {
             BadDecision toBeModified = GetById(modifiedDecision.Id);
 

@@ -3,7 +3,7 @@ using TestAPI.DLA.Model;
 
 namespace TestAPI.DLA.Repository
 {
-    public class BadDecisionFileRepository : BaseFileRepository, IBadDecisionFileRepository
+    public class BadDecisionFileRepository : BaseFileRepository, IBadDecisionRepository
     {
         private readonly object _fileLock = new object();
         private Persistor<BadDecision> _persistor = new Persistor<BadDecision>();

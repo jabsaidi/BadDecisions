@@ -83,7 +83,7 @@ namespace TestAPI.Controllers
         [HttpDelete("delete/{id}")]
         public IActionResult Delete(long id)
         {
-            BadDecision deletedDecision = _badDecisionRepository.Delete(id);
+            bool deletedDecision = _badDecisionRepository.Delete(id);
             bool deleted = _badDecisionFileRepository.Delete(id);
 
             if (deletedDecision == null)

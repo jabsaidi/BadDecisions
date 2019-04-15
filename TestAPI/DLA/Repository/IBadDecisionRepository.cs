@@ -8,12 +8,10 @@ namespace TestAPI.DLA.Repository
 {
     public interface IBadDecisionRepository
     {
-        BadDecision GetById(long id);
         List<BadDecision> GetAll();
-
-        BadDecision ModifyDecision(BadDecision modifiedDecision);
+        BadDecision GetById(long id);
         BadDecision Create(BadDecision badDecision);
-
-        BadDecision Delete(long id);
+        BadDecision Update(BadDecision modifiedDecision);
+        bool Delete(long id);
     }
 }
