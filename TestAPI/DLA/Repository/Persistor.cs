@@ -8,11 +8,16 @@ using TestAPI.DLA.Model;
 
 namespace TestAPI.DLA.Repository
 {
-    public class Persistor<T> : BaseFileRepository
+    public class Persistor<T>
             where T : BaseEntity, new()
     {
+        private string _fileName;
         private static ConcurrentDictionary<Type, PropertyInfo[]> _dic = new ConcurrentDictionary<Type, PropertyInfo[]>();
 
+        public Persistor(string fileName)
+        {
+            _fileName = fileName;
+        }
         public static PropertyInfo[] DeSerialize(T obj)
         {
             obj = new T();

@@ -19,8 +19,8 @@ namespace TestAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+            //List<BadDecision> fromCsv = _badDecisionRepository.GetAll();
             List<BadDecision> badDecisions = _badDecisionRepository.GetAll();
-            List<BadDecision> fromCsv = _badDecisionRepository.GetAll();
 
             if (badDecisions == null)
                 return NotFound();
@@ -69,8 +69,8 @@ namespace TestAPI.Controllers
                 Decision = decision
             };
 
-            BadDecision fileDecision = _badDecisionRepository.Create(badDecision);
             BadDecision newDecision = _badDecisionRepository.Create(badDecision);
+            BadDecision fileDecision = _badDecisionRepository.Create(badDecision);
 
             if (newDecision == null)
                 return BadRequest();

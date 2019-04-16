@@ -3,13 +3,15 @@ using TestAPI.DLA.Model;
 
 namespace TestAPI.DLA.Repository
 {
-    public class BadDecisionFileRepository : BaseFileRepository, IBadDecisionRepository
+    public class BadDecisionFileRepository : IBadDecisionRepository
     {
         private readonly object _fileLock = new object();
-        private Persistor<BadDecision> _persistor = new Persistor<BadDecision>();
+        private BaseFileRepository _baseFile = new BaseFileRepository("badDecisions.txt");
+        private Persistor<BadDecision> _persistor = new Persistor<BadDecision>("badDecisions.txt");
 
-        public BadDecisionFileRepository(Persistor<BadDecision> persistor)
+        public BadDecisionFileRepository(Persistor<BadDecision> persistor, BaseFileRepository baseFile)
         {
+            _baseFile = baseFile;
             _persistor = persistor;
         }
 
@@ -17,7 +19,7 @@ namespace TestAPI.DLA.Repository
         {
             lock (_fileLock)
             {
-                InitFile("decision", "id");
+                _baseFile.InitFile("decision", "id");
             }
         }
 

@@ -5,9 +5,14 @@ namespace TestAPI.DLA.Repository
 {
     public class BaseFileRepository
     {
-        protected string _fileName = "badDecisions.txt";
+        protected string _fileName;
 
-        protected void InitFile(params string[] columns)
+        public BaseFileRepository(string fileName)
+        {
+            _fileName = fileName;
+        }
+
+        public void InitFile(params string[] columns)
         {
             bool emptyFile = IsFileEmpty();
             if (emptyFile)
@@ -27,7 +32,7 @@ namespace TestAPI.DLA.Repository
             }
         }
 
-        public bool IsFileEmpty()
+        private bool IsFileEmpty()
         {
             using (var sr = new StreamReader(_fileName))
             {
