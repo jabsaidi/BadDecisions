@@ -18,6 +18,90 @@ namespace TestAPI.DLA.Repository
         {
             _fileName = fileName;
         }
+
+        public T Update(T objToUpdate)
+        {
+            DeSerialize(objToUpdate);
+
+            string newLine = ToCsv(objToUpdate);
+            int currLine = GetLineToModify(objToUpdate);
+
+            ReplaceLine(currLine, newLine);
+            return objToUpdate;
+        }
+
+        public bool Delete(long id)
+        {
+            T objToDelete = GetById(id);
+            int lineToRemove = GetLineToModify(objToDelete);
+            return DeleteLine(lineToRemove);
+        }
+
+        public T Create(T toCreate)
+        {
+            DeSerialize(toCreate);
+            string toLog = ToCsv(toCreate);
+            LogData(toLog);
+            return toCreate;
+        }
+
+        public T GetById(long id)
+        {
+            T foundobject = new T();
+            using (var sr = new StreamReader(_fileName))
+            {
+                var line = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var splitted = line.Split(";\t");
+                    string identificator = splitted[splitted.Length - 1];
+
+                    if (identificator == id.ToString())
+                    {
+                        foundobject = SerializeToObject(line, foundobject);
+                        break;
+                    }
+                }
+            }
+            return foundobject;
+        }
+
+        public List<T> GetAll()
+        {
+            T obj = new T();
+            List<T> list = new List<T>();
+            string[] lines = File.ReadAllLines(_fileName);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (i == 0)
+                    continue;
+                list.Add(SerializeToObject(lines[i], obj));
+            }
+            return list;
+        }
+
+        public T GetByDecision(string decision)
+        {
+            T foundobject = new T();
+            using (var sr = new StreamReader(_fileName))
+            {
+                var line = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var splitted = line.Split(";");
+                    string identificator = splitted[0];
+
+                    if (identificator == decision)
+                    {
+                        foundobject = SerializeToObject(line, foundobject);
+                        break;
+                    }
+                }
+            }
+            return foundobject;
+        }
+
         public static PropertyInfo[] DeSerialize(T obj)
         {
             obj = new T();
@@ -61,35 +145,6 @@ namespace TestAPI.DLA.Repository
             {
                 sw.WriteLine(row);
             }
-        }
-
-        public T Create(T toCreate)
-        {
-            DeSerialize(toCreate);
-            string toLog = ToCsv(toCreate);
-            LogData(toLog);
-            return toCreate;
-        }
-
-        public T GetById(long id)
-        {
-            T foundobject = new T();
-            using (var sr = new StreamReader(_fileName))
-            {
-                var line = string.Empty;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    var splitted = line.Split(";\t");
-                    string identificator = splitted[splitted.Length - 1];
-
-                    if (identificator == id.ToString())
-                    {
-                        foundobject = SerializeToObject(line, foundobject);
-                        break;
-                    }
-                }
-            }
-            return foundobject;
         }
 
         public T SerializeToObject(string csv, T obj)
@@ -142,21 +197,10 @@ namespace TestAPI.DLA.Repository
                 return value;
         }
 
-        public T Update(T objToUpdate)
-        {
-            DeSerialize(objToUpdate);
-
-            string newLine = ToCsv(objToUpdate);
-            int currLine = GetLineToModify(objToUpdate);
-
-            ReplaceLine(currLine, newLine);
-            return objToUpdate;
-        }
-
         private int GetLineToModify(T objToUpdate)
         {
-            string line = string.Empty;
             int currLine = 1;
+            string line = string.Empty;
 
             using (var sr = new StreamReader(_fileName))
             {
@@ -176,23 +220,16 @@ namespace TestAPI.DLA.Repository
         {
             string[] lines = File.ReadAllLines(_fileName);
 
-            using (StreamWriter writer = new StreamWriter(_fileName))
+            using (StreamWriter sw = new StreamWriter(_fileName))
             {
                 for (int currentLine = 1; currentLine <= lines.Length; ++currentLine)
                 {
                     if (currentLine == toReplace)
-                        writer.WriteLine(newLine);
+                        sw.WriteLine(newLine);
                     else
-                        writer.WriteLine(lines[currentLine - 1]);
+                        sw.WriteLine(lines[currentLine - 1]);
                 }
             }
-        }
-
-        public bool Delete(long id)
-        {
-            T objToDelete = GetById(id);
-            int lineToRemove = GetLineToModify(objToDelete);
-            return DeleteLine(lineToRemove);
         }
 
         private bool DeleteLine(int lineToRemove)
@@ -211,42 +248,6 @@ namespace TestAPI.DLA.Repository
                 }
             }
             return deleted;
-        }
-
-        public List<T> GetAll()
-        {
-            T obj = new T();
-            List<T> list = new List<T>();
-            string[] lines = File.ReadAllLines(_fileName);
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (i == 0)
-                    continue;
-                list.Add(SerializeToObject(lines[i], obj));
-            }
-            return list;
-        }
-
-        public T GetByDecision(string decision)
-        {
-            T foundobject = new T();
-            using (var sr = new StreamReader(_fileName))
-            {
-                var line = string.Empty;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    var splitted = line.Split(";");
-                    string identificator = splitted[0];
-
-                    if (identificator == decision)
-                    {
-                        foundobject = SerializeToObject(line, foundobject);
-                        break;
-                    }
-                }
-            }
-            return foundobject;
         }
     }
 }
