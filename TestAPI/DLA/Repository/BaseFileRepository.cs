@@ -23,7 +23,7 @@ namespace TestAPI.DLA.Repository
                     foreach (var column in columns)
                     {
                         if (i < columns.Count())
-                            sw.Write($"{column};");
+                            sw.Write($"{column};\t");
                         else
                             sw.WriteLine($"{column}");
                         i++;

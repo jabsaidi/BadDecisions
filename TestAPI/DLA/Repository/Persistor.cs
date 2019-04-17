@@ -44,7 +44,7 @@ namespace TestAPI.DLA.Repository
             foreach (var p in properties)
             {
                 if (line.Length > 0)
-                    line.Append(";");
+                    line.Append(";\t");
 
                 var x = p.GetValue(obj);
 
@@ -79,7 +79,7 @@ namespace TestAPI.DLA.Repository
                 var line = string.Empty;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var splitted = line.Split(";");
+                    var splitted = line.Split(";\t");
                     string identificator = splitted[splitted.Length - 1];
 
                     if (identificator == id.ToString())
