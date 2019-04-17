@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using TestAPI.DLA.Model;
+using System.Collections.Generic;
 
 namespace TestAPI.DLA.Repository
 {
@@ -10,9 +10,7 @@ namespace TestAPI.DLA.Repository
         public BadDecisionRepository()
         {
             if (_bd.Count == 0)
-            {
                 CreateData();
-            }
         }
 
         public BadDecision Create(BadDecision badDecision)
@@ -51,6 +49,11 @@ namespace TestAPI.DLA.Repository
         public List<BadDecision> GetAll()
         {
             return _bd;
+        }
+
+        public BadDecision GetByDecision(string decision)
+        {
+            return _bd.FirstOrDefault(b => b.Decision == decision);
         }
 
         public BadDecision GetById(long id)

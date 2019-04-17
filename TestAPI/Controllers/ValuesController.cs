@@ -19,32 +19,24 @@ namespace TestAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            //List<BadDecision> fromCsv = _badDecisionRepository.GetAll();
             List<BadDecision> badDecisions = _badDecisionRepository.GetAll();
-
             if (badDecisions == null)
                 return NotFound();
-
             return Ok(badDecisions);
         }
 
-        // GET api/values/id
         [HttpGet("{id}", Name = "Get BadDecisionId")]
         public IActionResult GetById(long id)
         {
-            var badDecision = _badDecisionRepository.GetById(id);
-            BadDecision fileDecision = _badDecisionRepository.GetById(id);
-
+            BadDecision badDecision = _badDecisionRepository.GetById(id);
             if (badDecision == null)
                 return NotFound();
-
             return Ok(badDecision);
         }
 
         [HttpPut("{id}", Name = "Modify decision")]
         public IActionResult Update(long id, JsonBody body)
         {
-
             string decision = body.decision;
 
             BadDecision toBeModified = new BadDecision()
@@ -53,7 +45,6 @@ namespace TestAPI.Controllers
                 Decision = decision
             };
             BadDecision modified = _badDecisionRepository.Update(toBeModified);
-            BadDecision modifieCsv = _badDecisionRepository.Update(toBeModified);
             return Ok(toBeModified);
         }
 
@@ -70,8 +61,6 @@ namespace TestAPI.Controllers
             };
 
             BadDecision newDecision = _badDecisionRepository.Create(badDecision);
-            BadDecision fileDecision = _badDecisionRepository.Create(badDecision);
-
             if (newDecision == null)
                 return BadRequest();
             return Ok(newDecision);
@@ -81,11 +70,19 @@ namespace TestAPI.Controllers
         public IActionResult Delete(long id)
         {
             bool deletedDecision = _badDecisionRepository.Delete(id);
-            bool deleted = _badDecisionRepository.Delete(id);
-
-            if (deletedDecision == false)
+            if (!deletedDecision)
                 return BadRequest();
             return Ok();
+        }
+
+        [HttpGet("decision/{decision}", Name ="Get by decision")]
+        public IActionResult GetByDecision(string decision)
+        {
+            BadDecision badDecision = _badDecisionRepository.GetByDecision(decision);
+
+            if (badDecision == null)
+                return NotFound();
+            return Ok(badDecision);
         }
     }
 }

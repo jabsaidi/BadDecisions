@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
+using System.Reflection;
 using TestAPI.DLA.Model;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace TestAPI.DLA.Repository
 {
@@ -70,6 +70,7 @@ namespace TestAPI.DLA.Repository
             LogData(toLog);
             return toCreate;
         }
+
         public T GetById(long id)
         {
             T foundobject = new T();
@@ -164,9 +165,7 @@ namespace TestAPI.DLA.Repository
                     var splitted = line.Split(";");
                     string identificator = splitted[splitted.Length - 1];
                     if (identificator == objToUpdate.Id.ToString())
-                    {
                         break;
-                    }
                     currLine++;
                 }
             }
@@ -193,7 +192,6 @@ namespace TestAPI.DLA.Repository
         {
             T objToDelete = GetById(id);
             int lineToRemove = GetLineToModify(objToDelete);
-
             return DeleteLine(lineToRemove);
         }
 
@@ -228,6 +226,27 @@ namespace TestAPI.DLA.Repository
                 list.Add(SerializeToObject(lines[i], obj));
             }
             return list;
+        }
+
+        public T GetByDecision(string decision)
+        {
+            T foundobject = new T();
+            using (var sr = new StreamReader(_fileName))
+            {
+                var line = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    var splitted = line.Split(";");
+                    string identificator = splitted[0];
+
+                    if (identificator == decision)
+                    {
+                        foundobject = SerializeToObject(line, foundobject);
+                        break;
+                    }
+                }
+            }
+            return foundobject;
         }
     }
 }

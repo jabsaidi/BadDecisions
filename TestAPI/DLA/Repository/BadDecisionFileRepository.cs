@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using TestAPI.DLA.Model;
+﻿using TestAPI.DLA.Model;
+using System.Collections.Generic;
 
 namespace TestAPI.DLA.Repository
 {
@@ -8,12 +8,6 @@ namespace TestAPI.DLA.Repository
         private readonly object _fileLock = new object();
         private BaseFileRepository _baseFile = new BaseFileRepository("badDecisions.txt");
         private Persistor<BadDecision> _persistor = new Persistor<BadDecision>("badDecisions.txt");
-
-        public BadDecisionFileRepository(Persistor<BadDecision> persistor, BaseFileRepository baseFile)
-        {
-            _baseFile = baseFile;
-            _persistor = persistor;
-        }
 
         public BadDecisionFileRepository()
         {
@@ -60,6 +54,14 @@ namespace TestAPI.DLA.Repository
             lock (_fileLock)
             {
                 return _persistor.GetAll();
+            }
+        }
+
+        public BadDecision GetByDecision(string decision)
+        {
+            lock (_fileLock)
+            {
+                return _persistor.GetByDecision(decision);
             }
         }
     }

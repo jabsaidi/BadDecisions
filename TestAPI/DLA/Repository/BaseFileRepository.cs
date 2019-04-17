@@ -5,7 +5,7 @@ namespace TestAPI.DLA.Repository
 {
     public class BaseFileRepository
     {
-        protected string _fileName;
+        private string _fileName;
 
         public BaseFileRepository(string fileName)
         {
@@ -40,6 +40,5 @@ namespace TestAPI.DLA.Repository
                 return text == string.Empty;
             }
         }
-
     }
 }
