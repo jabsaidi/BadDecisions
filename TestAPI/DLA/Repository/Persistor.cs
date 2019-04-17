@@ -167,36 +167,6 @@ namespace TestAPI.DLA.Repository
             return obj;
         }
 
-        public object ConvertToType(Type propType, string value)
-        {
-            if (propType == typeof(long))
-                return (long)Convert.ChangeType(value, typeof(long));
-
-            else if (propType == typeof(int))
-                return (int)Convert.ChangeType(value, typeof(int));
-
-            else if (propType == typeof(short))
-                return (short)Convert.ChangeType(value, typeof(short));
-
-            else if (propType == typeof(DateTime))
-                return (DateTime)Convert.ChangeType(value, typeof(DateTime));
-
-            else if (propType == typeof(bool))
-                return (bool)Convert.ChangeType(value, typeof(bool));
-
-            else if (propType == typeof(float))
-                return (float)Convert.ChangeType(value, typeof(float));
-
-            else if (propType == typeof(decimal))
-                return (decimal)Convert.ChangeType(value, typeof(decimal));
-
-            else if (propType == typeof(char))
-                return (char)Convert.ChangeType(value, typeof(char));
-
-            else
-                return value;
-        }
-
         private int GetLineToModify(T objToUpdate)
         {
             int currLine = 1;
@@ -248,6 +218,36 @@ namespace TestAPI.DLA.Repository
                 }
             }
             return deleted;
+        }
+
+        public object ConvertToType(Type propType, string value)
+        {
+            if (propType == typeof(long))
+                return (long)Convert.ChangeType(value, typeof(long));
+
+            else if (propType == typeof(int))
+                return (int)Convert.ChangeType(value, typeof(int));
+
+            else if (propType == typeof(short))
+                return (short)Convert.ChangeType(value, typeof(short));
+
+            else if (propType == typeof(DateTime))
+                return (DateTime)Convert.ChangeType(value, typeof(DateTime));
+
+            else if (propType == typeof(bool))
+                return (bool)Convert.ChangeType(value, typeof(bool));
+
+            else if (propType == typeof(float))
+                return (float)Convert.ChangeType(value, typeof(float));
+
+            else if (propType == typeof(decimal))
+                return (decimal)Convert.ChangeType(value, typeof(decimal));
+
+            else if (propType == typeof(char))
+                return (char)Convert.ChangeType(value, typeof(char));
+
+            else
+                return value;
         }
     }
 }
