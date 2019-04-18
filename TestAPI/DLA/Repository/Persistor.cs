@@ -222,20 +222,20 @@ namespace TestAPI.DLA.Repository
 
         public object ConvertToType(Type propType, string value)
         {
-            if (propType == typeof(long))
-                return (long)Convert.ChangeType(value, typeof(long));
-
-            else if (propType == typeof(int))
+            if (propType == typeof(int))
                 return (int)Convert.ChangeType(value, typeof(int));
-
-            else if (propType == typeof(short))
-                return (short)Convert.ChangeType(value, typeof(short));
-
-            else if (propType == typeof(DateTime))
-                return (DateTime)Convert.ChangeType(value, typeof(DateTime));
 
             else if (propType == typeof(bool))
                 return (bool)Convert.ChangeType(value, typeof(bool));
+
+            else if (propType == typeof(long))
+                return (long)Convert.ChangeType(value, typeof(long));
+
+            else if (propType == typeof(char))
+                return (char)Convert.ChangeType(value, typeof(char));
+
+            else if (propType == typeof(short))
+                return (short)Convert.ChangeType(value, typeof(short));
 
             else if (propType == typeof(float))
                 return (float)Convert.ChangeType(value, typeof(float));
@@ -243,9 +243,8 @@ namespace TestAPI.DLA.Repository
             else if (propType == typeof(decimal))
                 return (decimal)Convert.ChangeType(value, typeof(decimal));
 
-            else if (propType == typeof(char))
-                return (char)Convert.ChangeType(value, typeof(char));
-
+            else if (propType == typeof(DateTime))
+                return (DateTime)Convert.ChangeType(value, typeof(DateTime));
             else
                 return value;
         }

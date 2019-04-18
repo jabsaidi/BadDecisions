@@ -6,8 +6,8 @@ namespace TestAPI.DLA.Repository
     public class BadDecisionFileRepository : IBadDecisionRepository
     {
         private readonly object _fileLock = new object();
-        private BaseFileRepository _baseFile = new BaseFileRepository("badDecisions.txt");
-        private Persistor<BadDecision> _persistor = new Persistor<BadDecision>("badDecisions.txt");
+        private readonly BaseFileRepository _baseFile = new BaseFileRepository("badDecisions.txt");
+        private readonly Persistor<BadDecision> _persistor = new Persistor<BadDecision>("badDecisions.txt");
 
         public BadDecisionFileRepository()
         {
